@@ -11,9 +11,16 @@ const categories = data.data;
 categories.forEach(card => {
     // console.log(card);
     const newButton = document.createElement('button');
-    newButton.classList = 'btn  btn-ghost bg-slate-700 text-white text-lg';
+    newButton.classList = 'btn category-btn btn-ghost bg-slate-700 text-white text-lg';
     newButton.innerText =card.category;
-    newButton.addEventListener('click',()=>handleButton(card.category_id));
+    newButton.addEventListener('click',()=>{
+        handleButton(card.category_id);
+        const allBtn = document.getElementsByClassName('category-btn');
+        for(let btn of allBtn){
+            btn.classList.remove('bg-red-400');
+        }
+        newButton.classList.add('bg-red-400');
+    });
     btnContainer.appendChild(newButton);
 });
 }

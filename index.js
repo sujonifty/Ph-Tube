@@ -1,9 +1,12 @@
 const btnContainer = document.getElementById('btn-container');
+const errorContainer = document.getElementById('error-element');
+
 const fetchCategory = async() =>{
 const url = `https://openapi.programming-hero.com/api/videos/categories`;
 const response = await fetch(url);
 const data = await response.json();
 const categories = data.data;
+
 // console.log(categories);
 categories.forEach(card => {
     // console.log(card);
@@ -20,11 +23,21 @@ const handleButton =async(categoryId) =>{
 const response = await fetch(url);
 const data = await response.json();
 const categoryCards = data.data;
-
+if(categoryCards.length === 0){
+    errorContainer.classList.remove('hidden');
+}
+else{
+    errorContainer.classList.add('hidden');
+}
 const cardContainer = document.getElementById('card-container');
 cardContainer.innerHTML = '';
+
 categoryCards.forEach(video => {
     // console.log(video);
+    let verified =''
+if(video.authors[0].verified){
+verified = `<img class="w-6 h-6" src="./images/verify.png" alt=""></img>`
+}
     const newDiv = document.createElement('div');
 
     newDiv.innerHTML = `
@@ -42,9 +55,9 @@ categoryCards.forEach(video => {
                             <h2 class="card-title">${video.title}</h2>
                             <div class="flex mt-3">
                                 <p class="">${video.authors[0].profile_name}</p>
-                                <img class="w-6 h-6" src="./images/verify.png" alt="">
+                                ${verified}
                             </div>
-                            <p class="mt-3">100k Views</p>
+                            <p class="mt-3">${video.others.views}</p>
                         </div>
                     </div>
                 </div>

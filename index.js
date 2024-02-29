@@ -14,8 +14,12 @@ const displayCards = (cards) =>{
         const newButton = document.createElement('button');
         newButton.classList = 'btn  btn-ghost bg-slate-700 text-white text-lg';
         newButton.innerText =card.category;
+        newButton.addEventListener('click',()=>handleButton(card.category_id));
         btnContainer.appendChild(newButton);
     });
+}
+const handleButton = (categoryId) =>{
+    console.log(categoryId)
 }
 
 fetchCategory()
